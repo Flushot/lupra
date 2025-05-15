@@ -62,6 +62,14 @@ jobs:
     - name: Build
       run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }}
 
+    - name: Docs
+      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} --config ${{ matrix.build_type }} . --target doc_doxygen
+        - name: Deploy to GitHub Pages
+          uses: peaceiris/actions-gh-pages@v3
+          with:
+            github_token: ${{ secrets.GITHUB_TOKEN }}
+            publish_dir: ./docs/html
+
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
       run: ctest --extra-verbose --build-config ${{ matrix.build_type }} --tests-regex '^unit_test$'

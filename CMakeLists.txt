@@ -97,45 +97,43 @@ endif()
 # target_link_libraries(lupra PRIVATE zlog)
 
 # Documentation
-if (CMAKE_BUILD_TYPE MATCHES "^[Rr]elease")
-    find_package(Doxygen)
-    if (DOXYGEN_FOUND)
-        # Theme
-        # https://github.com/jothepro/doxygen-awesome-css?tab=readme-ov-file
-        FetchContent_Declare(
-            doxygen-awesome-css
-            URL https://github.com/jothepro/doxygen-awesome-css/archive/refs/heads/main.zip
-        )
-        FetchContent_MakeAvailable(doxygen-awesome-css)
-        FetchContent_GetProperties(doxygen-awesome-css SOURCE_DIR AWESOME_CSS_DIR)
+find_package(Doxygen)
+if (DOXYGEN_FOUND)
+    # Theme
+    # https://github.com/jothepro/doxygen-awesome-css?tab=readme-ov-file
+    FetchContent_Declare(
+        doxygen-awesome-css
+        URL https://github.com/jothepro/doxygen-awesome-css/archive/refs/heads/main.zip
+    )
+    FetchContent_MakeAvailable(doxygen-awesome-css)
+    FetchContent_GetProperties(doxygen-awesome-css SOURCE_DIR AWESOME_CSS_DIR)
 
-        set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
-        set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
-        set(DOXYGEN_INPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
-        set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/docs)
+    set(DOXYFILE_IN ${CMAKE_CURRENT_SOURCE_DIR}/docs/Doxyfile.in)
+    set(DOXYFILE_OUT ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile)
+    set(DOXYGEN_INPUT_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+    set(DOXYGEN_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR}/docs)
 
-        configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
-        message("Doxygen build started")
+    configure_file(${DOXYFILE_IN} ${DOXYFILE_OUT} @ONLY)
+    message("Doxygen build started")
 
-        # Create output directory
-        file(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR})
+    # Create output directory
+    file(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR})
 
-        add_custom_target(
-            doc_doxygen ALL
-            COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
-            MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
-            DEPENDS ${SOURCES}
-            WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-            COMMENT "Generating API documentation with Doxygen"
-            VERBATIM
-        )
+    add_custom_target(
+        doc_doxygen
+        COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
+        MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
+        DEPENDS ${SOURCES}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        COMMENT "Generating API documentation with Doxygen"
+        VERBATIM
+    )
 
-        install(
-            DIRECTORY ${DOXYGEN_OUPUT_DIR}
-            DESTINATION share/doc/${PROJECT_NAME}
-            OPTIONAL
-        )
-    else (DOXYGEN_FOUND)
-        message("Doxygen need to be installed to generate the doxygen documentation")
-    endif (DOXYGEN_FOUND)
-endif()
+    install(
+        DIRECTORY ${DOXYGEN_OUPUT_DIR}
+        DESTINATION share/doc/${PROJECT_NAME}
+        OPTIONAL
+    )
+else (DOXYGEN_FOUND)
+    message("Doxygen need to be installed to generate the doxygen documentation")
+endif (DOXYGEN_FOUND)
