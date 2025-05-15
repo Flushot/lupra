@@ -120,7 +120,7 @@ if (DOXYGEN_FOUND)
     file(MAKE_DIRECTORY ${DOXYGEN_OUTPUT_DIR})
 
     add_custom_target(
-        doc_doxygen
+        doc_doxygen ALL
         COMMAND ${DOXYGEN_EXECUTABLE} ${DOXYFILE_OUT}
         MAIN_DEPENDENCY ${DOXYFILE_OUT} ${DOXYFILE_IN}
         DEPENDS ${SOURCES}
@@ -130,7 +130,7 @@ if (DOXYGEN_FOUND)
     )
 
     install(
-        DIRECTORY ${DOXYGEN_OUPUT_DIR}
+        DIRECTORY ${DOXYGEN_OUTPUT_DIR}
         DESTINATION share/doc/${PROJECT_NAME}
         OPTIONAL
     )

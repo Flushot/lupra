@@ -71,12 +71,6 @@ jobs:
                  --tests-regex '^unit_test$'
       # run: ./ci/run_with_debugger.sh ./test_runner
 
-    - name: Build Docs
-      run: >
-           cmake --build ${{ steps.strings.outputs.build-output-dir }} \
-                 --config ${{ matrix.build_type }} \
-                 --target doc_doxygen
-
     - name: Deploy Docs to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
