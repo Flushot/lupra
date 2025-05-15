@@ -43,8 +43,7 @@ jobs:
       # These step outputs can be used throughout the workflow file.
       id: strings
       shell: bash
-      run: |
-        echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
+      run: echo "build-output-dir=${{ github.workspace }}/build" >> "$GITHUB_OUTPUT"
 
     # - name: Install LLDB
     #   run: sudo apt-get install -y lldb
@@ -53,25 +52,28 @@ jobs:
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: >
-        cmake -B ${{ steps.strings.outputs.build-output-dir }}
-              -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }}
-              -DCMAKE_C_COMPILER=${{ matrix.c_compiler }}
-              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }}
+        cmake -B ${{ steps.strings.outputs.build-output-dir }} \
+              -DCMAKE_CXX_COMPILER=${{ matrix.cpp_compiler }} \
+              -DCMAKE_C_COMPILER=${{ matrix.c_compiler }} \
+              -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} \
               -S ${{ github.workspace }}
 
     - name: Build
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} \
+      run: >
+           cmake --build ${{ steps.strings.outputs.build-output-dir }} \
                  --config ${{ matrix.build_type }}
 
     - name: Test
       working-directory: ${{ steps.strings.outputs.build-output-dir }}
-      run: ctest --extra-verbose \
+      run: >
+           ctest --extra-verbose \
                  --build-config ${{ matrix.build_type }} \
                  --tests-regex '^unit_test$'
       # run: ./ci/run_with_debugger.sh ./test_runner
 
     - name: Build Docs
-      run: cmake --build ${{ steps.strings.outputs.build-output-dir }} \
+      run: >
+           cmake --build ${{ steps.strings.outputs.build-output-dir }} \
                  --config ${{ matrix.build_type }} \
                  . \
                  --target doc_doxygen
