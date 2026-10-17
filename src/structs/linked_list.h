@@ -1,7 +1,7 @@
 #pragma once
 
 /**
- * Doubly-linked list node
+ * Linked list node
  *
  * @relates linked_list
  */
@@ -11,27 +11,26 @@ typedef struct linked_list_node {
 } list_node;
 
 /**
- * A linked list is a non-contiguous list of elements allocated on the heap.
+ * A linked list (doubly-linked) is a list of elements allocated non-contiguously on the heap.
  *
- * Linked lists are useful when you want low-cost updates/deletions and usually only sequentially scanning items.
- * They aren't very efficient at random access or when you need a contiguous block of memory (like arrays) though.
- *
- * Linked lists are doubly-linked and can efficiently be used as a queue or a stack.
+ * Linked lists are good when you want low-cost updates/deletions, usually work okay with a smaller volume of
+ * sequential scanning (but not as efficient as an array list for that), and perform poorly with random access reads.
+ * They're usually best suited for stacks and queues.
  *
  * **Example**
- * ```c
- * linked_list lst;
- * linked_list_init(&lst);
+ *     ```c
+ *     linked_list lst;
+ *     linked_list_init(&lst);
  *
- * int in_value = 1;
- * linked_list_push_tail(&lst, &in_value); // Append [1] to list
+ *     int in_value = 1;
+ *     linked_list_push_tail(&lst, &in_value); // Append [1] to list
  *
- * int *out_value = linked_list_tail(&lst); // Get last item
+ *     int *out_value = linked_list_tail(&lst); // Get last item
  *
- * assert(*in_value == *out_value);
+ *     assert(*in_value == *out_value);
  *
- * linked_list_destroy(&lst);
- * ```
+ *     linked_list_destroy(&lst);
+ *     ```
  */
 typedef struct linked_list {
     list_node *head, *tail;

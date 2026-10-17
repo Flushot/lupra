@@ -1,11 +1,17 @@
 #pragma once
 
 /**
- * An array list (also commonly known as a dynamic array) is an array that can dynamically grow as items are added.
+ * An array list (also commonly known as a dynamic array or a vector) is an array (in a contiguous block of memory)
+ * that can dynamically grow as items are added.
  *
  * Array lists are useful anywhere you need an array (for low-cost random access reads/append/overwrites with less
  * frequent prepends and insertions), but don't want to deal with the manual book keeping around resizing it when the
  * items being added exceed its capacity.
+ *
+ * Array lists perform better than linked lists when you want fast traversal and random access to items (with the added
+ * benefit of CPU cache locality, which is the opposite of a linked list's non-contiguous memory). They perform worse
+ * than linked lists when it comes to inserting items (all prepends and periodic appends cause O(N) resizes), making
+ * them bad for stacks and worse for queues.
  *
  * The way C normally allocates arrays is using a fixed-size contiguous block of memory. This means if you want
  * to add more elements after the array has reached its capacity, you'll typically need to allocate a new array,
@@ -17,19 +23,19 @@
  * array is automatically resized to accommodate.
  *
  * **Example**
- * ```c
- * array_list lst;
- * array_list_init(&lst, 5); // List of ints with capacity of 5
+ *     ```c
+ *     array_list lst;
+ *     array_list_init(&lst, 5); // List of ints with capacity of 5
  *
- * int in_value = 1;
- * array_list_push_tail(&lst, &in_value); // Append [1] to list
+ *     int in_value = 1;
+ *     array_list_push_tail(&lst, &in_value); // Append [1] to list
  *
- * int* out_value = array_list_get_at(&lst, 0); // Get item at position 0
+ *     int* out_value = array_list_get_at(&lst, 0); // Get item at position 0
  *
- * assert(*in_value == *out_value);
+ *     assert(*in_value == *out_value);
  *
- * array_list_destroy(&lst);
- * ```
+ *     array_list_destroy(&lst);
+ *     ```
  */
 typedef struct array_list {
     size_t size;

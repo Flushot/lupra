@@ -7,13 +7,15 @@
 #include "tests/structs/linked_list_test.h"
 #include "tests/structs/array_list_test.h"
 #include "tests/structs/hash_table_test.h"
+#include "tests/structs/hash_set_test.h"
 #include "tests/structs/bit_array_test.h"
 #include "tests/structs/bloom_filter_test.h"
 #include "tests/structs/heap_test.h"
 #include "tests/utils/net_utils_test.h"
 
 static int suite_setup() {
-    srand(0);
+    unsigned short seed[3] = {0, 0, 0};
+    seed48(seed);
 
     if (!lupra_init()) {
         return CUE_SINIT_FAILED;
@@ -42,6 +44,7 @@ int main(int argc, char** argv) {
         {"linked_list", suite_setup, suite_teardown, NULL, NULL, get_linked_list_tests()},
         {"array_list", suite_setup, suite_teardown, NULL, NULL, get_array_list_tests()},
         {"hash_table", suite_setup, suite_teardown, NULL, NULL, get_hash_table_tests()},
+        {"hash_set", suite_setup, suite_teardown, NULL, NULL, get_hash_set_tests()},
         {"bit_array", suite_setup, suite_teardown, NULL, NULL, get_bit_array_tests()},
         {"bloom_filter", suite_setup, suite_teardown, NULL, NULL, get_bloom_filter_tests()},
         {"heap", suite_setup, suite_teardown, NULL, NULL, get_heap_tests()},

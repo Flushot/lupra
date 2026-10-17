@@ -40,32 +40,32 @@ static void heap_dump(const heap* h) {
 
 void test_heap_init_and_destroy() {
     heap min_heap;
-    CU_ASSERT_EQUAL(heap_init(&min_heap, MIN_HEAP, value_cmp_int, 5), true)
+    CU_ASSERT_TRUE(heap_init(&min_heap, MIN_HEAP, value_cmp_int, 5))
     CU_ASSERT_EQUAL(min_heap.type, MIN_HEAP)
     CU_ASSERT_EQUAL(min_heap.heap_array->capacity, 6); // Rounded up to nearest even
     CU_ASSERT_EQUAL(min_heap.size, 0)
-    CU_ASSERT_EQUAL(heap_destroy(&min_heap), true)
+    CU_ASSERT_TRUE(heap_destroy(&min_heap))
 
     heap max_heap;
-    CU_ASSERT_EQUAL(heap_init(&max_heap, MAX_HEAP, value_cmp_int, 100), true)
+    CU_ASSERT_TRUE(heap_init(&max_heap, MAX_HEAP, value_cmp_int, 100))
     CU_ASSERT_EQUAL(max_heap.size, 0)
     CU_ASSERT_EQUAL(max_heap.heap_array->capacity, 100);
-    CU_ASSERT_EQUAL(heap_destroy(&max_heap), true)
+    CU_ASSERT_TRUE(heap_destroy(&max_heap))
 }
 
 void test_min_heap() {
     heap min_heap;
-    CU_ASSERT_EQUAL(heap_init(&min_heap, MIN_HEAP, value_cmp_int, 7), true)
+    CU_ASSERT_TRUE(heap_init(&min_heap, MIN_HEAP, value_cmp_int, 7))
 
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[5]), true) // [5 | [5]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[3]), true) // [3 | [3, 5]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[8]), true) // [69 | [3, 5, 69]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[9]), true) // [420 | [3, 5, 69, 420]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[4]), true) // [4 | [3, 4, 5, 69, 420]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[4]), true) // [4 | [3, 4, 4, 5, 69, 420]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[1]), true) // [1 | [1, 3, 4, 4, 5, 69, 420]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[7]), true) // [8 | [1, 3, 4, 4, 5, 8, 69, 420]]
-    CU_ASSERT_EQUAL(heap_push(&min_heap, &values[6]), true) // [7 | [1, 3, 4, 4, 5, 7, 8, 69, 420]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[5])) // [5 | [5]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[3])) // [3 | [3, 5]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[8])) // [69 | [3, 5, 69]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[9])) // [420 | [3, 5, 69, 420]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[4])) // [4 | [3, 4, 5, 69, 420]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[4])) // [4 | [3, 4, 4, 5, 69, 420]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[1])) // [1 | [1, 3, 4, 4, 5, 69, 420]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[7])) // [8 | [1, 3, 4, 4, 5, 8, 69, 420]]
+    CU_ASSERT_TRUE(heap_push(&min_heap, &values[6])) // [7 | [1, 3, 4, 4, 5, 7, 8, 69, 420]]
     CU_ASSERT_EQUAL(min_heap.size, 9)
 
     CU_ASSERT_EQUAL(*(int *)heap_peek(&min_heap), 1);
@@ -82,22 +82,22 @@ void test_min_heap() {
     CU_ASSERT_EQUAL(min_heap.size, 0)
 
     bool ret = heap_destroy(&min_heap);
-    CU_ASSERT_EQUAL(ret, true)
+    CU_ASSERT_TRUE(ret)
 }
 
 void test_max_heap() {
     heap max_heap;
-    CU_ASSERT_EQUAL(heap_init(&max_heap, MAX_HEAP, value_cmp_int, 9), true)
+    CU_ASSERT_TRUE(heap_init(&max_heap, MAX_HEAP, value_cmp_int, 9))
 
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[5]), true) // [5 | [5]]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[3]), true) // [3 | [5, 3]]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[8]), true) // [68 | [69, 5, 3]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[9]), true) // [420 | [420, 69, 5, 3]]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[4]), true) // [4 | [420, 69, 5, 4, 3]]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[4]), true) // [4 | [420, 69, 5, 4, 4, 3]]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[1]), true) // [1 | [420, 69, 5, 4, 4, 3, 1]]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[7]), true) // [8 | [420, 69, 8, 5, 4, 4, 3, 1]]
-    CU_ASSERT_EQUAL(heap_push(&max_heap, &values[6]), true) // [7 | [420, 69, 8, 7, 5, 4, 4, 3, 1]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[5])) // [5 | [5]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[3])) // [3 | [5, 3]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[8])) // [68 | [69, 5, 3]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[9])) // [420 | [420, 69, 5, 3]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[4])) // [4 | [420, 69, 5, 4, 3]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[4])) // [4 | [420, 69, 5, 4, 4, 3]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[1])) // [1 | [420, 69, 5, 4, 4, 3, 1]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[7])) // [8 | [420, 69, 8, 5, 4, 4, 3, 1]]
+    CU_ASSERT_TRUE(heap_push(&max_heap, &values[6])) // [7 | [420, 69, 8, 7, 5, 4, 4, 3, 1]]
     CU_ASSERT_EQUAL(max_heap.size, 9)
 
     CU_ASSERT_EQUAL(*(int *)heap_peek(&max_heap), 420);
@@ -113,5 +113,5 @@ void test_max_heap() {
     CU_ASSERT_EQUAL(*(int *)heap_pop(&max_heap), 1) // [1 | []]
     CU_ASSERT_EQUAL(max_heap.size, 0)
 
-    CU_ASSERT_EQUAL(heap_destroy(&max_heap), true)
+    CU_ASSERT_TRUE(heap_destroy(&max_heap))
 }

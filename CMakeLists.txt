@@ -23,6 +23,7 @@ set(
     src/structs/bit_array.c
     src/structs/bloom_filter.c
     src/structs/hash_table.c
+    src/structs/hash_set.c
     src/structs/linked_list.c
     src/structs/heap.c
     src/utils/value.c
@@ -53,6 +54,7 @@ if (CMAKE_BUILD_TYPE MATCHES "^[Dd]ebug")
         src/tests/structs/bit_array_test.c
         src/tests/structs/bloom_filter_test.c
         src/tests/structs/hash_table_test.c
+        src/tests/structs/hash_set_test.c
         src/tests/structs/linked_list_test.c
         src/tests/structs/heap_test.c
         src/tests/algos/murmur3_test.c

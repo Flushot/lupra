@@ -38,7 +38,7 @@ static inline size_t find_index(const hash_table* ht, const void* key) {
 static uint32_t default_key_hash(const void* key, size_t ht_size) {
     static uint32_t hash_seed = -1;
     if (hash_seed == -1) {
-        hash_seed = rand();
+        hash_seed = lrand48();
     }
 
     return murmur3(key, strlen(key), hash_seed) % (ht_size - 1);
@@ -118,7 +118,7 @@ hash_table_entry* hash_table_init_entry(
         return nullptr;
     }
 
-    p_entry->must_destroy = 1;
+    p_entry->auto_destroy = 1;
 
     p_entry->key = malloc(key_size);
     if (p_entry->key == NULL) {
@@ -397,7 +397,7 @@ static void destroy_iter_func(
     const size_t _index,
     void* _user_arg
 ) {
-    if (entry->must_destroy) {
+    if (entry->auto_destroy) {
         hash_table_destroy_entry(entry);
         return;
     }

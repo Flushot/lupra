@@ -7,19 +7,26 @@
  *
  * Bit arrays are useful when you have a lot of boolean values that you want to store using minimal memory.
  *
+ * Why use this over simply manipulating bits in an int?
+ *     - The number of storage bits is configurable and contiguously allocated.
+ *     - (Future) The storage can dynamically grow and shrink
+ *
  * **Example**
- * ```c
- * bit_array ba;
- * bit_array_init(&ba, 10); // 10 possible values
+ *     ```c
+ *     bit_array ba;
+ *     bit_array_init(&ba, 10); // 10 possible values
  *
- * bit_array_set(&ba, 8); // Turn bit 8 on
- * assert(bit_array_test(&ba, 8) == true);
+ *     bit_array_set(&ba, 8); // Turn bit 8 on
+ *     assert(bit_array_test(&ba, 8) == true);
  *
- * bit_array_clear(&ba, 8); // Turn bit 8 off
- * assert(bit_array_test(&ba, 8) == false);
+ *     bit_array_clear(&ba, 8); // Turn bit 8 off
+ *     assert(bit_array_test(&ba, 8) == false);
  *
- * bit_array_destroy(&ba);
- * ```
+ *     bit_array_destroy(&ba);
+ *     ```
+ *
+ * Future ideas:
+ *     - Use an array list so that it can be automatically resized
  */
 typedef struct bit_array {
     /**

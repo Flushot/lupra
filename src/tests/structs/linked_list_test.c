@@ -15,42 +15,42 @@ CU_TestInfo* get_linked_list_tests() {
 
 void test_linked_list_init_and_destroy() {
     linked_list lst;
-    CU_ASSERT_EQUAL(linked_list_init(&lst), true)
+    CU_ASSERT_TRUE(linked_list_init(&lst))
     CU_ASSERT_EQUAL(lst.size, 0)
     CU_ASSERT_PTR_NULL(lst.head)
 
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "foo"), true) // ["foo"]
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "bar"), true) // ["foo", "bar"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "foo")) // ["foo"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "bar")) // ["foo", "bar"]
 
-    CU_ASSERT_EQUAL(linked_list_destroy(&lst), true)
+    CU_ASSERT_TRUE(linked_list_destroy(&lst))
     CU_ASSERT_EQUAL(lst.size, 0)
     CU_ASSERT_PTR_NULL(lst.head)
 }
 
 void test_linked_list() {
     linked_list lst;
-    CU_ASSERT_EQUAL(linked_list_init(&lst), true)
+    CU_ASSERT_TRUE(linked_list_init(&lst))
 
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "foo"), true) // ["foo"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "foo")) // ["foo"]
     CU_ASSERT_EQUAL(lst.size, 1)
     CU_ASSERT_STRING_EQUAL(lst.head->value, "foo")
     CU_ASSERT_PTR_NULL(lst.head->next)
 
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "bar"), true) // ["foo", "bar"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "bar")) // ["foo", "bar"]
     CU_ASSERT_EQUAL(lst.size, 2)
 
     CU_ASSERT_STRING_EQUAL(lst.tail->value, "bar")
     CU_ASSERT_STRING_EQUAL(lst.tail->prev->value, "foo")
     CU_ASSERT_PTR_NULL(lst.tail->prev->prev)
 
-    CU_ASSERT_EQUAL(linked_list_push_head(&lst, "spangle"), true) // ["spangle", "foo", "bar"]
+    CU_ASSERT_TRUE(linked_list_push_head(&lst, "spangle")) // ["spangle", "foo", "bar"]
     CU_ASSERT_EQUAL(lst.size, 3)
     CU_ASSERT_STRING_EQUAL(lst.head->value, "spangle")
     CU_ASSERT_STRING_EQUAL(lst.head->next->value, "foo")
     CU_ASSERT_STRING_EQUAL(lst.head->next->next->value, "bar")
     CU_ASSERT_PTR_NULL(lst.head->next->next->next)
 
-    CU_ASSERT_EQUAL(linked_list_del_at(&lst, 0), true) // ["foo", "bar"]
+    CU_ASSERT_TRUE(linked_list_del_at(&lst, 0)) // ["foo", "bar"]
     CU_ASSERT_EQUAL(lst.size, 2)
     CU_ASSERT_STRING_EQUAL(lst.head->value, "foo")
     CU_ASSERT_STRING_EQUAL(lst.head->next->value, "bar")
@@ -61,7 +61,7 @@ void test_linked_list() {
     CU_ASSERT_STRING_EQUAL(lst.head->value, "foo")
     CU_ASSERT_PTR_NULL(lst.head->next)
 
-    CU_ASSERT_EQUAL(linked_list_destroy(&lst), true)
+    CU_ASSERT_TRUE(linked_list_destroy(&lst))
 }
 
 static void test_list_iter_func(const list_node* item, size_t index, void* result) {
@@ -74,30 +74,30 @@ void test_linked_list_forward_iter() {
     linked_list lst;
     char result[500];
     memset(result, 0, sizeof(result));
-    CU_ASSERT_EQUAL(linked_list_init(&lst), true)
+    CU_ASSERT_TRUE(linked_list_init(&lst))
 
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "foo"), true) // ["foo"]
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "bar"), true) // ["foo", "bar"]
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "spangle"), true) // ["foo", "bar", "spangle"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "foo")) // ["foo"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "bar")) // ["foo", "bar"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "spangle")) // ["foo", "bar", "spangle"]
 
     linked_list_forward_iter(&lst, test_list_iter_func, result);
     CU_ASSERT_STRING_EQUAL(result, "(foo)(bar)(spangle)")
 
-    CU_ASSERT_EQUAL(linked_list_destroy(&lst), true)
+    CU_ASSERT_TRUE(linked_list_destroy(&lst))
 }
 
 void test_linked_list_backward_iter() {
     linked_list lst;
     char result[500];
     memset(result, 0, sizeof(result));
-    CU_ASSERT_EQUAL(linked_list_init(&lst), true)
+    CU_ASSERT_TRUE(linked_list_init(&lst))
 
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "foo"), true) // ["foo"]
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "bar"), true) // ["foo", "bar"]
-    CU_ASSERT_EQUAL(linked_list_push_tail(&lst, "spangle"), true) // ["foo", "bar", "spangle"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "foo")) // ["foo"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "bar")) // ["foo", "bar"]
+    CU_ASSERT_TRUE(linked_list_push_tail(&lst, "spangle")) // ["foo", "bar", "spangle"]
 
     linked_list_backward_iter(&lst, test_list_iter_func, result);
     CU_ASSERT_STRING_EQUAL(result, "(spangle)(bar)(foo)")
 
-    CU_ASSERT_EQUAL(linked_list_destroy(&lst), true)
+    CU_ASSERT_TRUE(linked_list_destroy(&lst))
 }

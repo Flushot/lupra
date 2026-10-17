@@ -18,17 +18,17 @@
  * Items can't be deleted from a bloom filter.
  *
  * **Example**
- * ```c
- * bloom_filter bf;
- * bloom_filter_init(&bf, 100); // Max 100 values before false positive rate increases
+ *     ```c
+ *     bloom_filter bf;
+ *     bloom_filter_init(&bf, 100); // Max 100 values before false positive rate increases
  *
- * assert(!bloom_filter_check(&bf, "foo"));
+ *     assert(!bloom_filter_check(&bf, "foo"));
  *
- * bloom_filter_add(&bf, "foo");
- * assert(bloom_filter_check(&bf, "foo"));
+ *     bloom_filter_add(&bf, "foo");
+ *     assert(bloom_filter_check(&bf, "foo"));
  *
- * bloom_filter_destroy(&bf);
- * ```
+ *     bloom_filter_destroy(&bf);
+ *     ```
  */
 typedef struct bloom_filter {
     /**

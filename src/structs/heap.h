@@ -23,25 +23,25 @@ enum heap_type {
  * Values in the heap are stored in a flat array, which allows for efficient memory access.
  *
  * **Example**
- * ```c
- * heap min_heap;
- * heap_init(&min_heap, MIN_HEAP, value_cmp_int, 5);
+ *     ```c
+ *     heap min_heap;
+ *     heap_init(&min_heap, MIN_HEAP, value_cmp_int, 5);
  *
- * int one = 1;
- * int two = 2;
- * int three = 3;
+ *     int one = 1;
+ *     int two = 2;
+ *     int three = 3;
  *
- * heap_push(&min_heap, &two);
- * assert(*(int *)heap_peek(&min_heap) == 2);
+ *     heap_push(&min_heap, &two);
+ *     assert(*(int *)heap_peek(&min_heap) == 2);
  *
- * heap_push(&min_heap, &three);
- * assert(*(int *)heap_peek(&min_heap) == 2);
+ *     heap_push(&min_heap, &three);
+ *     assert(*(int *)heap_peek(&min_heap) == 2);
  *
- * heap_push(&min_heap, &one);
- * assert(*(int *)heap_peek(&min_heap) == 1);
+ *     heap_push(&min_heap, &one);
+ *     assert(*(int *)heap_peek(&min_heap) == 1);
  *
- * heap_destroy(&heap);
- * ```
+ *     heap_destroy(&heap);
+ *     ```
 */
 typedef struct heap {
     enum heap_type type;

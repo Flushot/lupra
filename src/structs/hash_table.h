@@ -16,7 +16,7 @@ typedef struct hash_table_entry {
      * If set to 1, then ht_destroy_entry() will automatically
      * be called on this entry when ht_destroy() was called
      */
-    uint8_t must_destroy;
+    uint8_t auto_destroy;
 } hash_table_entry;
 
 /**
@@ -36,22 +36,22 @@ typedef uint32_t (*hash_table_key_hash_func)(const void* key, size_t ht_size);
  * identified by its key.
  *
  * **Example**
- * ```c
- * hash_table ht;
- * hash_table_init(&ht, 10, NULL, NULL); // Max 10 items before collisions increase
+ *     ```c
+ *     hash_table ht;
+ *     hash_table_init(&ht, 10, NULL, NULL); // Max 10 items before collisions increase
  *
- * hash_table_set(&ht, "foo", "one");
- * hash_table_set(&ht, "foo", "two");
- * hash_table_set(&ht, "bar", "three");
+ *     hash_table_set(&ht, "foo", "one");
+ *     hash_table_set(&ht, "foo", "two");
+ *     hash_table_set(&ht, "bar", "three");
  *
- * char *foo = hash_table_get(&ht, "foo");
- * char *bar = hash_table_get(&ht, "bar");
+ *     char *foo = hash_table_get(&ht, "foo");
+ *     char *bar = hash_table_get(&ht, "bar");
  *
- * assert(strcmp(foo, "two") == 0);
- * assert(strcmp(bar, 'three") == 0);
+ *     assert(strcmp(foo, "two") == 0);
+ *     assert(strcmp(bar, 'three") == 0);
  *
- * hash_table_destroy(&ht);
- * ```
+ *     hash_table_destroy(&ht);
+ *     ```
  */
 typedef struct hash_table {
     /**
@@ -90,7 +90,7 @@ typedef struct hash_table {
  * Time complexity: O(1)
  *
  * @relates hash_table
- * @param[out] ht Hash table
+ * @param[out] ht Hash table to initialize
  * @param[in] size Index size
  * @param[in] key_cmp Key comparator (or NULL to use default)
  * @param[in] key_hash Key hash function (or NULL to use default)
