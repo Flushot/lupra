@@ -203,7 +203,7 @@ void* array_list_pop_head(array_list* lst) {
     return array_list_del_at(lst, 0);
 }
 
-bool array_list_push_tail(array_list* lst, void* value) {
+bool inline array_list_push_tail(array_list* lst, void* value) {
     return array_list_insert_at(lst, value, lst->size);
 }
 

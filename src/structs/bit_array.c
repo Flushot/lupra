@@ -28,15 +28,15 @@ bool bit_array_init(bit_array *ba, const size_t size) {
     return true;
 }
 
-void bit_array_set(bit_array *ba, const uint32_t k) {
+void inline bit_array_set(bit_array *ba, const uint32_t k) {
     ba->bit_array[k / ba->size_bits] |= 1U << (k % ba->size_bits);
 }
 
-void bit_array_clear(bit_array *ba, const uint32_t k) {
+void inline bit_array_clear(bit_array *ba, const uint32_t k) {
     ba->bit_array[k / ba->size_bits] &= ~(1U << (k % ba->size_bits));
 }
 
-bool bit_array_test(const bit_array *ba, const uint32_t k) {
+bool inline bit_array_test(const bit_array *ba, const uint32_t k) {
     return (ba->bit_array[k / ba->size_bits] & (1U << (k % ba->size_bits))) != 0;
 }
 
