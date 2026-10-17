@@ -133,10 +133,14 @@ inline void* array_list_get_at(const array_list* lst, const size_t pos) {
     return lst->array[pos];
 }
 
+static inline size_t array_list_new_capacity(array_list *lst, size_t min_capacity) {
+    return min_capacity * 2;
+}
+
 inline bool array_list_set_at(array_list* lst, const size_t pos, void* value) {
     if (pos >= lst->size) {
         if (pos >= lst->capacity) {
-            if (!array_list_resize(lst, pos + 1)) {
+            if (!array_list_resize(lst, array_list_new_capacity(lst, pos + 1))) {
                 return false;
             }
         }

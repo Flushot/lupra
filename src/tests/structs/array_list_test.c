@@ -106,11 +106,11 @@ void test_array_list_set_at_beyond_capacity() {
 
     CU_ASSERT_TRUE(array_list_set_at(&lst, 3, &values[3])) // [5, NULL, 2, 3], Beyond capacity
     CU_ASSERT_EQUAL(lst.size, 4)
-    CU_ASSERT_EQUAL(lst.capacity, 4) // Capacity increased
+    CU_ASSERT_EQUAL(lst.capacity, 8) // Capacity increased
 
-    CU_ASSERT_TRUE(array_list_set_at(&lst, 4, &values[4])) // [5, NULL, 2, 3, 4], Beyond capacity
+    CU_ASSERT_TRUE(array_list_set_at(&lst, 4, &values[4])) // [5, NULL, 2, 3, 4], Within capacity
     CU_ASSERT_EQUAL(lst.size, 5)
-    CU_ASSERT_EQUAL(lst.capacity, 5) // Capacity increased
+    CU_ASSERT_EQUAL(lst.capacity, 8) // Capacity same
 
     CU_ASSERT_EQUAL(*(int *)array_list_get_at(&lst, 0), 5)
     CU_ASSERT_EQUAL(array_list_get_at(&lst, 1), NULL)
