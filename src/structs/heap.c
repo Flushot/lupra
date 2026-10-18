@@ -44,7 +44,7 @@ bool heap_init(
  * @param index Node index
  * @return Parent node index
  */
-static inline size_t parent(const size_t index) {
+static size_t parent(const size_t index) {
     return (size_t)floor((double)(index - 1) / 2);
 }
 
@@ -56,7 +56,7 @@ static inline size_t parent(const size_t index) {
  * @param index Node index
  * @return Left child node index
  */
-static inline size_t left_child(const size_t index) {
+static size_t left_child(const size_t index) {
     return 2 * index + 1;
 }
 
@@ -68,7 +68,7 @@ static inline size_t left_child(const size_t index) {
  * @param index Node index
  * @return Right child node index
  */
-static inline size_t right_child(const size_t index) {
+static size_t right_child(const size_t index) {
     return 2 * index + 2;
 }
 

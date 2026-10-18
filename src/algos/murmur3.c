@@ -2,7 +2,7 @@
 
 #include <string.h>
 
-static uint32_t inline murmur3_scramble(uint32_t k) {
+static uint32_t murmur3_scramble(uint32_t k) {
     k *= 0xcc9e2d51;
     k = (k << 15) | (k >> 17);
     k *= 0x1b873593;

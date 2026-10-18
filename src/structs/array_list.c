@@ -59,7 +59,7 @@ size_t array_list_index_of(const array_list* lst, const void* value) {
     return -1;
 }
 
-size_t inline array_list_binary_search_index_of(const array_list* lst, const void* value) {
+inline size_t array_list_binary_search_index_of(const array_list* lst, const void* value) {
     return array_binary_search(void*, lst->array, lst->size, value);
 }
 
@@ -133,7 +133,7 @@ inline void* array_list_get_at(const array_list* lst, const size_t pos) {
     return lst->array[pos];
 }
 
-static inline size_t array_list_new_capacity(array_list *lst, size_t min_capacity) {
+static size_t array_list_new_capacity(array_list *lst, size_t min_capacity) {
     return min_capacity * 2;
 }
 
@@ -207,7 +207,7 @@ void* array_list_pop_head(array_list* lst) {
     return array_list_del_at(lst, 0);
 }
 
-bool inline array_list_push_tail(array_list* lst, void* value) {
+inline bool array_list_push_tail(array_list* lst, void* value) {
     return array_list_insert_at(lst, value, lst->size);
 }
 

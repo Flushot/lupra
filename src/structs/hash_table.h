@@ -232,7 +232,7 @@ typedef void (*hash_table_iter_func)(
  * @return true on success, false on failure
  */
 bool hash_table_iter(
-    hash_table* ht,
+    const hash_table* ht,
     hash_table_iter_func iter_func,
     void* iter_func_user_arg
 );
@@ -247,7 +247,7 @@ bool hash_table_iter(
  * @param[out] keys Pointer to array to store key pointers in
  * @return Number of keys, or -1 on failure
  */
-size_t hash_table_keys(hash_table* ht, void** keys);
+size_t hash_table_keys(const hash_table* ht, void** keys);
 
 /**
  * Get all values in the hash table
@@ -259,7 +259,7 @@ size_t hash_table_keys(hash_table* ht, void** keys);
  * @param[out] values Pointer to array to store value pointers in
  * @return Number of values, or -1 on failure
  */
-size_t hash_table_values(hash_table* ht, void** values);
+size_t hash_table_values(const hash_table* ht, void** values);
 
 /**
  * Get the number of entries in the hash table

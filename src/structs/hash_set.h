@@ -90,7 +90,7 @@ bool hash_set_add(hash_set* hs, void* value);
  * @param[in] value Value to check
  * @return true if value exists, false otherwise
  */
-bool hash_set_contains(hash_set* hs, void* value);
+bool hash_set_contains(const hash_set* hs, const void* value);
 
 /**
  * Remove a value from the hash set
@@ -100,7 +100,7 @@ bool hash_set_contains(hash_set* hs, void* value);
  * @param[in] value Value to remove
  * @return true on success, false on failure
  */
-bool hash_set_del(hash_set* hs, void* value);
+bool hash_set_del(hash_set* hs, const void* value);
 
 /**
  * Get the number of values in the hash set
@@ -109,4 +109,4 @@ bool hash_set_del(hash_set* hs, void* value);
  * @param[in] hs Hash set
  * @return Number of values in the hash set
  */
-size_t hash_set_size(hash_set* hs);
+size_t hash_set_size(const hash_set* hs);

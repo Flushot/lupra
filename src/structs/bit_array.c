@@ -5,8 +5,8 @@
 #include "../utils/log.h"
 
 bool bit_array_init(bit_array *ba, const size_t size) {
-    const size_t array_elem_size = sizeof(uint32_t);
-    const size_t array_elem_size_bits = array_elem_size * 8;
+    constexpr size_t array_elem_size = sizeof(uint32_t);
+    constexpr size_t array_elem_size_bits = array_elem_size * 8;
 
     // Round up to the nearest multiple of array_elem_size_bits
     ba->size_bits = ((size + (array_elem_size_bits - 1)) / array_elem_size_bits) * array_elem_size_bits;
@@ -28,15 +28,15 @@ bool bit_array_init(bit_array *ba, const size_t size) {
     return true;
 }
 
-void inline bit_array_set(bit_array *ba, const uint32_t k) {
+inline void bit_array_set(bit_array *ba, const uint32_t k) {
     ba->bit_array[k / ba->size_bits] |= 1U << (k % ba->size_bits);
 }
 
-void inline bit_array_clear(bit_array *ba, const uint32_t k) {
+inline void bit_array_clear(bit_array *ba, const uint32_t k) {
     ba->bit_array[k / ba->size_bits] &= ~(1U << (k % ba->size_bits));
 }
 
-bool inline bit_array_test(const bit_array *ba, const uint32_t k) {
+inline bool bit_array_test(const bit_array *ba, const uint32_t k) {
     return (ba->bit_array[k / ba->size_bits] & (1U << (k % ba->size_bits))) != 0;
 }
 

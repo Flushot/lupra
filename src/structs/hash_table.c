@@ -24,7 +24,7 @@ struct hash_table_array_builder_arg {
  * @param[in] key Key to compute index for
  * @return Computed index
  */
-static inline size_t find_index(const hash_table* ht, const void* key) {
+static size_t find_index(const hash_table* ht, const void* key) {
     return (*ht->key_hash)(key, ht->index_size) % (ht->index_size - 1);
 }
 
@@ -289,8 +289,8 @@ bool hash_table_del(hash_table* ht, const void* key) {
 }
 
 bool hash_table_iter(
-    hash_table* ht,
-    const hash_table_iter_func iter_func,
+    const hash_table* ht,
+    hash_table_iter_func iter_func,
     void* iter_func_user_arg
 ) {
     if (ht->index == NULL) {
@@ -338,7 +338,7 @@ static void keys_iter_func(
     arg->items[arg->index++] = entry->key;
 }
 
-size_t hash_table_keys(hash_table* ht, void** keys) {
+size_t hash_table_keys(const hash_table* ht, void** keys) {
     struct hash_table_array_builder_arg user_arg;
 
     memset(&user_arg, 0, sizeof(user_arg));
@@ -351,7 +351,7 @@ size_t hash_table_keys(hash_table* ht, void** keys) {
     return user_arg.index;
 }
 
-size_t hash_table_size(const hash_table* ht) {
+inline size_t hash_table_size(const hash_table* ht) {
     return ht->entry_size;
 }
 
@@ -372,7 +372,7 @@ static void values_iter_func(
     arg->items[arg->index++] = entry->value;
 }
 
-size_t hash_table_values(hash_table* ht, void** values) {
+size_t hash_table_values(const hash_table* ht, void** values) {
     struct hash_table_array_builder_arg user_arg;
 
     memset(&user_arg, 0, sizeof(user_arg));
